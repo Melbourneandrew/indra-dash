@@ -24,7 +24,12 @@
           <td>
             {{ formatter.format(job.budgetedCost) }}
           </td>
-          <td>
+          <td
+            :class="{
+              green: job.actualCost < job.budgetedCost,
+              red: job.actualCost > job.budgetedCost,
+            }"
+          >
             {{ formatter.format(job.actualCost) }}
           </td>
           <td
@@ -100,10 +105,10 @@ td {
   text-align: right;
   padding-right: 50px !important;
 }
-.green{
+.green {
   color: green;
 }
-.red{
+.red {
   color: red;
 }
 </style>

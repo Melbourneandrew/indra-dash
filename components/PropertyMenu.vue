@@ -18,7 +18,7 @@
             <YearPlan />
           </v-window-item>
           <v-window-item value="one-job">
-            <ActivityReport @back="activityReportBack" />
+            <ActivityReport :selectedJob="selectedJob" @back="activityReportBack" />
           </v-window-item>
         </v-window>
       </v-card-text>
@@ -44,9 +44,10 @@ const props = defineProps({
 })
 
 const propertySelected = computed(()=>props.property)
-
+const selectedJob = ref();
 async function jobSelected(job) {
   console.log(job);
+  selectedJob.value = job;
   showTabs.value = false;
   tab.value = "one-job";
 }

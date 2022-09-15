@@ -25,6 +25,7 @@
         </v-table>
       </v-window-item>
       <v-window-item value="two">
+        <h2>Job Date: {{ selectedJob.date }}</h2>
         <v-table>
           <thead>
             <tr>
@@ -43,7 +44,17 @@
               <td class="eqmt-col">{{ item.name }}</td>
               <td>{{ formatter.format(item.costPerHour) }}</td>
               <td>{{ item.budgetedMinutes }}</td>
-              <td>{{ item.actualMinutes }}</td>
+              <td
+                :class="{
+                  green:
+                    item.actualMinutes < item.budgetedMinutes,
+                  red:
+                    item.actualMinutes > item.budgetedMinutes,
+                }"
+              >
+                {{ item.actualMinutes }}
+              </td>
+              <!-- Budgeted Cost-->
               <td>
                 {{
                   formatter.format(
@@ -52,13 +63,22 @@
                   )
                 }}
               </td>
-              <td>
+              <!--Actual Cost-->
+              <td
+                :class="{
+                  green:
+                    item.actualMinutes < item.budgetedMinutes,
+                  red:
+                    item.actualMinutes > item.budgetedMinutes,
+                }"
+              >
                 {{
                   formatter.format(
-                    item.actualCost * (item.costPerHour / 60)
+                    item.actualMinutes * (item.costPerHour / 60)
                   )
                 }}
               </td>
+              <!--Variance in minutes-->
               <td
                 :class="{
                   green:
@@ -71,18 +91,18 @@
               >
                 {{ item.budgetedMinutes - item.actualMinutes }}
               </td>
+              <!--Dollar variance-->
               <td
-                :class="[
-                  item.budgetedMinutes *
-                    (item.costPerHour / 60) -
-                    item.actualCost * (item.costPerHour / 60) ==
-                  0
-                    ? 'norm'
-                    : 'green',
-                ]"
+                :class="{
+                  green:
+                    item.actualMinutes *
+                      (item.costPerHour / 60) -
+                      item.budgetedMinutes *
+                        (item.costPerHour / 60) !=
+                    0,
+                }"
                 v-if="
-                  item.budgetedMinutes *
-                    (item.costPerHour / 60) -
+                  item.budgetedMinutes * (item.costPerHour / 60) -
                     item.actualMinutes *
                       (item.costPerHour / 60) >=
                   0
@@ -100,11 +120,35 @@
               <td v-else class="red">
                 ({{
                   formatter.format(
-                    item.budgetedMinutes *
+                    item.actualMinutes *
                       (item.costPerHour / 60) -
-                      item.actualCost * (item.costPerHour / 60)
+                      item.budgetedMinutes *
+                        (item.costPerHour / 60)
                   )
                 }})
+              </td>
+            </tr>
+            <tr>
+              <td colspan="5"></td>
+              <td>Total:</td>
+              <td
+                :class="{
+                  red: minutesVarianceTotal < 0,
+                  green: minutesVarianceTotal > 0,
+                }"
+              >
+                {{ minutesVarianceTotal }}
+              </td>
+              <td
+                v-if="dollarVarianceTotal >= 0"
+                :class="{
+                  green: dollarVarianceTotal > 0,
+                }"
+              >
+                ${{ dollarVarianceTotal }}
+              </td>
+              <td v-else class="red">
+                ({{ formatter.format(dollarVarianceTotal) }})
               </td>
             </tr>
           </tbody>
@@ -115,9 +159,18 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 const tab = ref();
-
+const props = defineProps({
+  selectedJob: {
+    type: Object,
+    default: {},
+  },
+});
+const selectedJob = computed(() => props.selectedJob);
+watch(selectedJob, () => {
+  console.log(selectedJob.value);
+});
 const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
@@ -266,6 +319,17 @@ const equipment = [
     dollarVariance: 0,
   },
 ];
+const dollarVarianceTotal = equipment.reduce((total, item) => {
+  return (
+    total +
+    (item.budgetedMinutes * (item.costPerHour / 60) -
+      item.actualMinutes * (item.costPerHour / 60))
+  );
+}, 0);
+
+const minutesVarianceTotal = equipment.reduce((total, item) => {
+  return total + (item.budgetedMinutes - item.actualMinutes);
+}, 0);
 </script>
 <style scoped>
 .back-button-row {
@@ -301,5 +365,11 @@ td {
 }
 .red {
   color: crimson;
+}
+h2 {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  text-decoration: underline;
 }
 </style>

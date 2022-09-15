@@ -57,7 +57,21 @@
             v-for="(month, index) in activity.monthLogs
               .slice(1)
               .flat(1)"
-            :class="{ greycell: index % 2 != 0 }"
+            :class="{
+              greycell: index % 2 != 0,
+              red:
+                index % 2 != 0 &&
+                activity.monthLogs.slice(1).flat(1)[index] >
+                  activity.monthLogs.slice(1).flat(1)[
+                    index - 1
+                  ],
+              green:
+                index % 2 != 0 &&
+                activity.monthLogs.slice(1).flat(1)[index] <
+                  activity.monthLogs.slice(1).flat(1)[
+                    index - 1
+                  ],
+            }"
           >
             {{ month }}
           </td>
@@ -235,6 +249,12 @@ const activities = [
 </script>
 <style scoped>
 .greycell {
-  background-color: rgb(51,51,51);
+  background-color: rgb(51, 51, 51);
+}
+.red{
+  color: red;
+}
+.green{
+  color: green;
 }
 </style>

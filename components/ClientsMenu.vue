@@ -28,13 +28,13 @@
         :key="index"
       >
         <v-expansion-panel-title class="panel-title">
-          {{client.name}}
+          {{ client.name }}
         </v-expansion-panel-title>
         <v-expansion-panel-text class="panel-content">
           <h2 class="properties-title">Properties</h2>
           <v-expansion-panels variant="accordion">
             <v-expansion-panel
-            @click="$emit('select', [i,j])"
+              @click="$emit('select', property)"
               class="subpanel"
               elevation="8"
               v-for="(property, index) in client.properties"
@@ -45,7 +45,7 @@
                 collapse-icon="mdi-arrow-right"
                 class="subpanel-title"
               >
-                {{property}}
+                {{ property.name }}
               </v-expansion-panel-title>
             </v-expansion-panel>
           </v-expansion-panels>
@@ -56,33 +56,27 @@
 </template>
 
 <script setup>
-    const clients = [
-        {
-            name: "Shady Oaks Neighborhood",
-            properties: [
-                "1700 Shady Oaks Dr",
-                "1444 Dark Oaks Dr",
-                "1125 Smelly Ln",
-                "443 W Dove Ct"
-            ]
-        },
-        {
-            name:"Carroll Office Park",
-            properties:[
-                "Suite 111A",
-                "Suite 111B",
-                "Chem Lab West"
-            ]
-        },
-        {
-            name:"Client 3",
-            properties:[
-                "Property 1",
-                "Property 2",
-                "Property 3",
-            ]
-        }
-    ]
+// const clients = [
+//   {
+//     name: "Shady Oaks Neighborhood",
+//     properties: [
+//       "1700 Shady Oaks Dr",
+//       "1444 Dark Oaks Dr",
+//       "1125 Smelly Ln",
+//       "443 W Dove Ct",
+//     ],
+//   },
+//   {
+//     name: "Carroll Office Park",
+//     properties: ["Suite 111A", "Suite 111B", "Chem Lab West"],
+//   },
+//   {
+//     name: "Client 3",
+//     properties: ["Property 1", "Property 2", "Property 3"],
+//   },
+// ];
+const state = useState("state");
+const clients = state.value
 </script>
 <style scoped>
 .client-menu {

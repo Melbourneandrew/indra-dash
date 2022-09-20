@@ -65,35 +65,14 @@ const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
 });
-const jobs = [
-  {
-    date: "9/1/22",
-    budgetedMinutes: 250,
-    actualMinutes: 317,
-    budgetedCost: 90,
-    actualCost: 115,
-    varianceInMinutes: -67,
-    dollarVariance: -25,
-  },
-  {
-    date: "9/8/22",
-    budgetedMinutes: 345,
-    actualMinutes: 300,
-    budgetedCost: 130,
-    actualCost: 98,
-    varianceInMinutes: 45,
-    dollarVariance: 32,
-  },
-  {
-    date: "9/15/22",
-    budgetedMinutes: 250,
-    actualMinutes: 317,
-    budgetedCost: 90,
-    actualCost: 115,
-    varianceInMinutes: -67,
-    dollarVariance: -25,
-  },
-];
+const props = defineProps({
+  jobs: {
+    type: Object,
+    default: {}
+  }
+})
+const jobs = computed(()=>props.jobs)
+
 </script>
 <style scoped>
 th {

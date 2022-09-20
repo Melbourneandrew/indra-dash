@@ -12,38 +12,41 @@
       <v-card-text>
         <v-window v-model="tab">
           <v-window-item value="jobs">
-            <JobsReport @selected="jobSelected"></JobsReport>
+            <JobsReport @selected="jobSelected" :jobs="propertySelected.jobs"></JobsReport>
           </v-window-item>
           <v-window-item value="year">
-            <YearPlan />
+            <YearPlan :plan="propertySelected.plan"/>
           </v-window-item>
           <v-window-item value="one-job">
-            <ActivityReport :selectedJob="selectedJob" @back="activityReportBack" />
+            <ActivityReport
+              :selectedJob="selectedJob"
+              :propertyInfo="propertySelected.info"
+              @back="activityReportBack"
+            />
           </v-window-item>
         </v-window>
       </v-card-text>
     </v-card>
-    <h1 v-else> Select a property to see reporting</h1>
+    <h1 v-else>Select a property to see reporting</h1>
   </div>
 </template>
 
 <script setup>
 import JobsReport from "./JobsReport.vue";
 import ActivityReport from "./ActivityReport.vue";
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import YearPlan from "./YearPlan.vue";
-import PropertyInfo from "./PropertyInfo.vue"
 const tab = ref();
 const showTabs = ref(true);
 
 const props = defineProps({
-    property: {
-        type: Object,
-        default: null
-    }
-})
-
-const propertySelected = computed(()=>props.property)
+  property: {
+    type: Object,
+    default: null,
+  },
+});
+const propertySelected = computed(() => props.property);
+watch(propertySelected, ()=>console.log(propertySelected.value))
 const selectedJob = ref();
 async function jobSelected(job) {
   console.log(job);
@@ -73,9 +76,9 @@ async function activityReportBack() {
 .tab {
   font-weight: bold;
 }
-h1{
-    margin: auto;
-    margin-top: 200px;
-    color: gray;
+h1 {
+  margin: auto;
+  margin-top: 200px;
+  color: gray;
 }
 </style>

@@ -40,7 +40,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item, index) in equipment" :key="index">
+            <tr v-for="(item, index) in report" :key="index">
               <td class="eqmt-col">{{ item.name }}</td>
               <td>{{ formatter.format(item.costPerHour) }}</td>
               <td>{{ item.budgetedMinutes }}</td>
@@ -102,7 +102,8 @@
                     0,
                 }"
                 v-if="
-                  item.budgetedMinutes * (item.costPerHour / 60) -
+                  item.budgetedMinutes *
+                    (item.costPerHour / 60) -
                     item.actualMinutes *
                       (item.costPerHour / 60) >=
                   0
@@ -166,170 +167,40 @@ const props = defineProps({
     type: Object,
     default: {},
   },
+  propertyInfo: {
+    type: Object,
+    default: {},
+  },
 });
 const selectedJob = computed(() => props.selectedJob);
 watch(selectedJob, () => {
   console.log(selectedJob.value);
 });
+const propertyInfo = computed(() => props.propertyInfo);
+
+const report = computed(() => props.selectedJob.report);
+
 const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
 });
-const propertyInfo = {
-  "Client Name": "Shady Oaks Neighborhood",
-  "Property Address": "1700 Shady Oaks Drive",
-  "Job Date": "9/1/22 5:00AM",
-  "Service Description":
-    "Mowing, grass trimming, edging, hedge trimming, weeding ",
-  "Grass lot area": "4.12 acres",
-  "Turf area": "0 acres",
-  "Job Price": "$280",
-  "Visits per year": "36",
-  "Yearly gross rev.": "$10,000",
-};
-const equipment = [
-  {
-    name: "Mower - 21 inch base",
-    costPerHour: 24,
-    budgetedMinutes: 40,
-    actualMinutes: 60,
-    budgetedCost: 16,
-    actualCost: 24,
-    varianceInMinutes: -20,
-    dollarVariance: -8,
+const dollarVarianceTotal = report.value.reduce(
+  (total, item) => {
+    return (
+      total +
+      (item.budgetedMinutes * (item.costPerHour / 60) -
+        item.actualMinutes * (item.costPerHour / 60))
+    );
   },
-  {
-    name: "Mower - Zero turn 54 inch base",
-    costPerHour: 24,
-    budgetedMinutes: 60,
-    actualMinutes: 80,
-    budgetedCost: 24,
-    actualCost: 32,
-    varianceInMinutes: -15,
-    dollarVariance: -8,
-  },
-  {
-    name: "Grass trimmer",
-    costPerHour: 20,
-    budgetedMinutes: 30,
-    actualMinutes: 45,
-    budgetedCost: 10,
-    actualCost: 15,
-    varianceInMinutes: -15,
-    dollarVariance: -5,
-  },
-  {
-    name: "Hedge trimmer",
-    costPerHour: 20,
-    budgetedMinutes: 30,
-    actualMinutes: 15,
-    budgetedCost: 10,
-    actualCost: 5,
-    varianceInMinutes: 15,
-    dollarVariance: 5,
-  },
-  {
-    name: "Tree trimmer",
-    costPerHour: 20,
-    budgetedMinutes: 0,
-    actualMinutes: 0,
-    budgetedCost: 0,
-    actualCost: 0,
-    varianceInMinutes: 0,
-    dollarVariance: 0,
-  },
-  {
-    name: "Edger",
-    costPerHour: 20,
-    budgetedMinutes: 20,
-    actualMinutes: 22,
-    budgetedCost: 6.66,
-    actualCost: 7.33,
-    varianceInMinutes: -2,
-    dollarVariance: 1,
-  },
-  {
-    name: "Blower",
-    costPerHour: 20,
-    budgetedMinutes: 30,
-    actualMinutes: 40,
-    budgetedCost: 10,
-    actualCost: 13.33,
-    varianceInMinutes: -10,
-    dollarVariance: -3,
-  },
-  {
-    name: "Spreader",
-    costPerHour: 30,
-    budgetedMinutes: 0,
-    actualMinutes: 0,
-    budgetedCost: 0,
-    actualCost: 0,
-    varianceInMinutes: 0,
-    dollarVariance: 0,
-  },
-  {
-    name: "Sprayer",
-    costPerHour: 30,
-    budgetedMinutes: 0,
-    actualMinutes: 0,
-    budgetedCost: 0,
-    actualCost: 0,
-    varianceInMinutes: 0,
-    dollarVariance: 0,
-  },
-  {
-    name: "Weeding Bucket",
-    costPerHour: 20,
-    budgetedMinutes: 40,
-    actualMinutes: 55,
-    budgetedCost: 13.33,
-    actualCost: 18.33,
-    varianceInMinutes: -15,
-    dollarVariance: -5,
-  },
-  {
-    name: "Shovel",
-    costPerHour: 20,
-    budgetedMinutes: 0,
-    actualMinutes: 0,
-    budgetedCost: 0,
-    actualCost: 0,
-    varianceInMinutes: 0,
-    dollarVariance: 0,
-  },
-  {
-    name: "Rake",
-    costPerHour: 20,
-    budgetedMinutes: 0,
-    actualMinutes: 0,
-    budgetedCost: 0,
-    actualCost: 0,
-    varianceInMinutes: 0,
-    dollarVariance: 0,
-  },
-  {
-    name: "Pruner",
-    costPerHour: 20,
-    budgetedMinutes: 0,
-    actualMinutes: 0,
-    budgetedCost: 0,
-    actualCost: 0,
-    varianceInMinutes: 0,
-    dollarVariance: 0,
-  },
-];
-const dollarVarianceTotal = equipment.reduce((total, item) => {
-  return (
-    total +
-    (item.budgetedMinutes * (item.costPerHour / 60) -
-      item.actualMinutes * (item.costPerHour / 60))
-  );
-}, 0);
+  0
+);
 
-const minutesVarianceTotal = equipment.reduce((total, item) => {
-  return total + (item.budgetedMinutes - item.actualMinutes);
-}, 0);
+const minutesVarianceTotal = report.value.reduce(
+  (total, item) => {
+    return total + (item.budgetedMinutes - item.actualMinutes);
+  },
+  0
+);
 </script>
 <style scoped>
 .back-button-row {

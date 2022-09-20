@@ -510,7 +510,7 @@ const propertyInfoLoganSheet = {
   "Service Description":
     "Mowing, grass trimming, edging, hedge trimming, weeding ",
   "Grass lot area": "5 acres",
-  "Turf area": "0 acres",
+  "Turf area": "4.5 acres",
   "Job Price": "$500",
   "Visits per year": "36",
   "Yearly gross rev.": "$18,000",

@@ -424,7 +424,7 @@ const mowingWorkers = computed(() => Math.round(numberOfWorkers.value) * (Math.r
 const nonMowingWorkers = computed(() => Math.round(numberOfWorkers.value) - mowingWorkers.value)
 
 const percentIncreaseCustomers = computed(()=>{
-  return (customers.value / nonMowingWorkers.value) * ((mowingWorkers.value *  (1 - mowingSplit.value / 100)) / customers.value) * 100;
+  return (customers.value / nonMowingWorkers.value) * ((mowingWorkers.value *  (mowingSplit.value / 100)) / customers.value) * 100;
 })
 const estIncreaseInCustomers = computed(()=>{
   return customers.value * (percentIncreaseCustomers.value / 100);
@@ -433,7 +433,7 @@ const estYearlyIncreaseInRevenue = computed(() => {
   return avgRevPerCustomer.value * (Math.round(estIncreaseInCustomers.value))
 })
 const overheadFactor = computed(()=>{
-  return Math.round(estimatedRobotsRequired.value / 100 * 50000)
+  return Math.round(estimatedRobotsRequired.value / 200 * 50000)
 })
 const netIncreaseRevenue = computed(()=>{
   return estYearlyIncreaseInRevenue.value - overheadFactor.value - (estimatedMonthlyRobotCost.value * 12);

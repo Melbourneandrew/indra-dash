@@ -16,7 +16,7 @@
         </li>
         <li class="rc-subtitle-item">
           Our Robotics calculator helps you visualize how much
-          more you can grow by using robot mowers.
+          more you can grow by using robot mowers without adding workers.
         </li>
       </ul>
       <!-- RADIO BUTTONS -->
@@ -124,9 +124,9 @@
       <v-expansion-panels class="calculations-panel">
         <v-expansion-panel>
           <v-expansion-panel-title
-            class="calculations-title"
+            class="calculations-title calculations-panel"
           >
-            <ul class="calculation-main-list">
+            <ul class="calculation-main-list" style="margin-top: 10px">
               <li class="calculation-item-main">
                 <div class="label">
                   Potential increase in business:
@@ -532,6 +532,7 @@ const netIncreaseRevenue = computed(() => {
   padding: 10px;
   height: fit-content;
   border-radius: 5px;
+  margin-bottom: 80px;
 }
 .rc-title {
   font-size: 30px;

@@ -1,11 +1,18 @@
 <template>
   <div class="navbar">
     <img class="logo" src="/static/robin-logo-orange.png" />
-    <h1 class="header">Robin Activity Dashboard</h1>
+    <h1 class="header">{{props.title}}</h1>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+const props = defineProps({
+  title: {
+    type: String,
+    default: ""
+  }
+})
+</script>
 <style scoped>
 .navbar {
   width: 100vw;

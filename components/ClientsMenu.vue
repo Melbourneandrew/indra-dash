@@ -32,9 +32,10 @@
         </v-expansion-panel-title>
         <v-expansion-panel-text class="panel-content">
           <h2 class="properties-title">Properties</h2>
+          <!-- CLIENT PROPERTIES PANELS -->
           <v-expansion-panels variant="accordion">
             <v-expansion-panel
-              @click="$emit('select', property)"
+              @click="$emit('propertySelected', property)"
               class="subpanel"
               elevation="8"
               v-for="(property, index) in client.properties"
@@ -56,27 +57,8 @@
 </template>
 
 <script setup>
-// const clients = [
-//   {
-//     name: "Shady Oaks Neighborhood",
-//     properties: [
-//       "1700 Shady Oaks Dr",
-//       "1444 Dark Oaks Dr",
-//       "1125 Smelly Ln",
-//       "443 W Dove Ct",
-//     ],
-//   },
-//   {
-//     name: "Carroll Office Park",
-//     properties: ["Suite 111A", "Suite 111B", "Chem Lab West"],
-//   },
-//   {
-//     name: "Client 3",
-//     properties: ["Property 1", "Property 2", "Property 3"],
-//   },
-// ];
 const state = useState("state");
-const clients = state.value
+const clients = state.value;
 </script>
 <style scoped>
 .client-menu {
@@ -91,6 +73,23 @@ const clients = state.value
   margin-left: 30px;
   margin-top: 30px;
   margin-bottom: 20px;
+}
+.client-info-title {
+  height: 60px;
+  background-color: rgb(28, 30, 33);
+  font-weight: bold;
+  font-size: 18px;
+}
+.client-info-panel {
+  border-color: rgba(128, 128, 128, 0.067);
+  border-width: 1px;
+  border-style: solid;
+  border-top-left-radius: 10px !important;
+  margin-top: 5px !important;
+  margin-bottom: 10px;
+}
+.v-expansion-panels--variant-accordion > :last-child {
+  border-radius: 10px !important;
 }
 .actions-row {
   display: flex;
@@ -144,9 +143,6 @@ const clients = state.value
 }
 .panel-content {
   background-color: rgb(28, 30, 33);
-}
-.panel-title:hover {
-  border-radius: 15px;
 }
 .subpanel-title {
   height: 60px;

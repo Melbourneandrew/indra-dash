@@ -1,6 +1,6 @@
 <template>
   <div class="menu">
-    <v-card class="menu-card" v-if="propertySelected != null">
+    <v-card class="menu-card">
       <v-tabs
         v-if="showTabs"
         v-model="tab"
@@ -27,7 +27,6 @@
         </v-window>
       </v-card-text>
     </v-card>
-    <h1 v-else>Select a property to see reporting</h1>
   </div>
 </template>
 

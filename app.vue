@@ -36,7 +36,7 @@ const navTitle = useState("nav-title", () => {
   font-size: 20px;
   
 }
-.calculations-panel .v-expansion-panel{
+.v-expansion-panel.calculations-panel{
   border-radius: 10px !important;
 }
 .v-expansion-panel__shadow{

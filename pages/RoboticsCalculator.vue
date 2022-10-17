@@ -124,7 +124,7 @@
       <v-expansion-panels class="calculations-panel">
         <v-expansion-panel>
           <v-expansion-panel-title
-            class="calculations-title calculations-panel"
+            class="calculations-title"
           >
             <ul class="calculation-main-list">
               <li class="calculation-item-main">

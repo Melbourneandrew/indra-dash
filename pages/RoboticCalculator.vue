@@ -2,7 +2,7 @@
   <div class="robo-calc">
     <v-card class="calc-card">
       <v-card-title class="rc-title"
-        >Robotic Potential</v-card-title
+        >Robotics Calculator</v-card-title
       >
       <div class="divider"></div>
       <!-- INTRO BLURB -->
@@ -175,7 +175,7 @@
                       class="calculations-title calculations-panel"
                     >
                       <ul class="calculation-main-list sublist">
-                        <li class="calculation-item-main">
+                        <li class="calculation-item-main subitem">
                           <div class="label">
                             Estimated Robots Required:
                           </div>
@@ -237,7 +237,7 @@
                       class="calculations-title calculations-panel"
                     >
                       <ul class="calculation-main-list sublist">
-                        <li class="calculation-item-main">
+                        <li class="calculation-item-main subitem">
                           <div class="label">
                             Estimated Robots Monthly Cost:
                           </div>
@@ -424,7 +424,7 @@ const mowingWorkers = computed(() => Math.round(numberOfWorkers.value) * (Math.r
 const nonMowingWorkers = computed(() => Math.round(numberOfWorkers.value) - mowingWorkers.value)
 
 const percentIncreaseCustomers = computed(()=>{
-  return (customers.value / nonMowingWorkers.value) * (mowingWorkers.value / customers.value) * 100;
+  return (customers.value / nonMowingWorkers.value) * ((mowingWorkers.value *  (1 - mowingSplit.value / 100)) / customers.value) * 100;
 })
 const estIncreaseInCustomers = computed(()=>{
   return customers.value * (percentIncreaseCustomers.value / 100);
@@ -549,6 +549,9 @@ const netIncreaseRevenue = computed(()=>{
   margin-bottom: 20px;
   width: 90%;
   display: flex;
+}
+.subitem{
+  width: 98%;
 }
 .calculation-item-main .label {
   align-self: left;

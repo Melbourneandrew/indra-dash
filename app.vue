@@ -14,7 +14,7 @@ const route = useRoute();
 const navTitle = useState("nav-title", () => {
   if (route.path == "/")
     return "Robin Activity Dashboard";
-  if (route.path == "/RoboticCalculator")
+  if (route.path.toLowerCase() == "/roboticcalculator")
     return "Robin Robotic Calculator";
 });
 </script>

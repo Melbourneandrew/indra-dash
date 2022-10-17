@@ -236,7 +236,7 @@
                     <v-expansion-panel-title
                       class="calculations-title calculations-panel"
                     >
-                      <ul class="calculation-main-list">
+                      <ul class="calculation-main-list sublist">
                         <li class="calculation-item-main">
                           <div class="label">
                             Estimated Robots Monthly Cost:

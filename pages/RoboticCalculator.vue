@@ -131,27 +131,57 @@
                 <div class="label">
                   Potential increase in business:
                 </div>
-                <div class="number">{{percentIncreaseCustomers.toFixed(2)}}%</div>
+                <div class="number">
+                  {{ percentIncreaseCustomers.toFixed(2) }}%
+                </div>
               </li>
               <li class="calculation-item-main">
                 <div class="label">
                   Potential increase in customers:
                 </div>
-                <div class="number">{{Math.round(estIncreaseInCustomers).toLocaleString()}}</div>
+                <div class="number">
+                  {{
+                    Math.round(
+                      estIncreaseInCustomers
+                    ).toLocaleString()
+                  }}
+                </div>
               </li>
               <li class="calculation-item-main">
                 <div class="label">
                   Potential increase in revenue:
                 </div>
-                <div class="number">${{netIncreaseRevenue.toLocaleString()}}</div>
+                <div class="number">
+                  ${{ netIncreaseRevenue.toLocaleString() }}
+                </div>
               </li>
             </ul>
           </v-expansion-panel-title>
           <v-expansion-panel-text>
             <ul class="calculation-main-list">
               <li class="calculation-item-main">
-                <div class="label">Total customers:</div>
+                <div class="label">
+                  Total current customers:
+                </div>
                 <div class="number">{{ customers }}</div>
+              </li>
+              <li class="calculation-item-main">
+                <div class="label">
+                  Estimated increase in customers:
+                </div>
+                <div class="number">
+                  {{
+                    Math.round(
+                      estIncreaseInCustomers
+                    ).toLocaleString()
+                  }}
+                </div>
+              </li>
+              <li class="calculation-item-main">
+                <div class="label">Total future customers:</div>
+                <div class="number">
+                  {{ totalFutureCustomers }}
+                </div>
               </li>
               <li class="calculation-item-main">
                 <div class="label">Average property sq ft:</div>
@@ -166,37 +196,45 @@
                 </div>
               </li>
               <!-- MOWER BREAKDOWN -->
-              <li
-                class="calculation-item-main"
-              >
+              <li class="calculation-item-main">
                 <v-expansion-panels class="calculations-panel">
                   <v-expansion-panel>
                     <v-expansion-panel-title
                       class="calculations-title calculations-panel"
                     >
                       <ul class="calculation-main-list sublist">
-                        <li class="calculation-item-main subitem">
+                        <li
+                          class="calculation-item-main subitem"
+                        >
                           <div class="label">
                             Estimated Robots Required:
                           </div>
                           <div class="number">
                             {{
-                              estimatedRobotsRequired
+                              Math.round(
+                                estimatedRobotsRequired
+                              ).toLocaleString()
                             }}
                           </div>
                         </li>
                       </ul>
                     </v-expansion-panel-title>
                     <v-expansion-panel-text>
-                      <ul v-if="clientTypeRadio == 'Commercial'" class="calculation-main-list">
+                      <ul
+                        v-if="clientTypeRadio == 'Commercial'"
+                        class="calculation-main-list"
+                      >
                         <li class="calculation-item-main">
                           <div class="label">
                             Husqvarna 430XH:
                           </div>
                           <div class="number">
                             {{
-                              customers *
-                              (Math.round(mowingSplit) / 100)
+                              Math.round(
+                                totalFutureCustomers *
+                                  (Math.round(mowingSplit) /
+                                    100)
+                              ).toLocaleString()
                             }}
                           </div>
                         </li>
@@ -206,20 +244,28 @@
                           </div>
                           <div class="number">
                             {{
-                              customers *
-                              (Math.round(mowingSplit) / 100)
+                              Math.round(
+                                totalFutureCustomers *
+                                  (Math.round(mowingSplit) /
+                                    100)
+                              ).toLocaleString()
                             }}
                           </div>
                         </li>
                       </ul>
-                      <ul v-if="clientTypeRadio == 'Residential'" class="calculation-main-list">
+                      <ul
+                        v-if="clientTypeRadio == 'Residential'"
+                        class="calculation-main-list"
+                      >
                         <li class="calculation-item-main">
                           <div class="label">
                             Husqvarna 315X:
                           </div>
                           <div class="number">
                             {{
-                              estimatedRobotsRequired
+                              Math.round(
+                                estimatedRobotsRequired
+                              )
                             }}
                           </div>
                         </li>
@@ -228,16 +274,16 @@
                   </v-expansion-panel>
                 </v-expansion-panels>
               </li>
-              <li
-                class="calculation-item-main"
-              >
+              <li class="calculation-item-main">
                 <v-expansion-panels class="calculations-panel">
                   <v-expansion-panel>
                     <v-expansion-panel-title
                       class="calculations-title calculations-panel"
                     >
                       <ul class="calculation-main-list sublist">
-                        <li class="calculation-item-main subitem">
+                        <li
+                          class="calculation-item-main subitem"
+                        >
                           <div class="label">
                             Estimated Robots Monthly Cost:
                           </div>
@@ -250,7 +296,10 @@
                       </ul>
                     </v-expansion-panel-title>
                     <v-expansion-panel-text>
-                      <ul v-if="clientTypeRadio == 'Commercial'" class="calculation-main-list">
+                      <ul
+                        v-if="clientTypeRadio == 'Commercial'"
+                        class="calculation-main-list"
+                      >
                         <li class="calculation-item-main">
                           <div class="label">
                             Husqvarna 430XH:
@@ -272,7 +321,10 @@
                           </div>
                         </li>
                       </ul>
-                      <ul v-if="clientTypeRadio == 'Residential'" class="calculation-main-list">
+                      <ul
+                        v-if="clientTypeRadio == 'Residential'"
+                        class="calculation-main-list"
+                      >
                         <li class="calculation-item-main">
                           <div class="label">
                             Husqvarna 315X:
@@ -289,37 +341,49 @@
                 </v-expansion-panels>
               </li>
               <li class="calculation-item-main">
-                <div class="label">Estimated yearly cost:</div>
-                <div class="number">${{(estimatedMonthlyRobotCost * 12).toLocaleString()}}</div>
+                <div class="label">
+                  Estimated yearly robot cost:
+                </div>
+                <div class="number">
+                  ${{
+                    (
+                      estimatedMonthlyRobotCost * 12
+                    ).toLocaleString()
+                  }}
+                </div>
               </li>
               <li class="calculation-item-main">
                 <div class="label">
                   Average yearly revenue/customer:
                 </div>
-                <div class="number">${{avgRevPerCustomer.toLocaleString()}}</div>
-              </li>
-              <li class="calculation-item-main">
-                <div class="label">
-                  Estimated increase in customers:
+                <div class="number">
+                  ${{ avgRevPerCustomer.toLocaleString() }}
                 </div>
-                <div class="number">{{Math.round(estIncreaseInCustomers).toLocaleString()}}</div>
               </li>
               <li class="calculation-item-main">
                 <div class="label">
                   Estimated yearly increase in revenue:
                 </div>
-                <div class="number">${{estYearlyIncreaseInRevenue.toLocaleString()}}</div>
+                <div class="number">
+                  ${{
+                    estYearlyIncreaseInRevenue.toLocaleString()
+                  }}
+                </div>
               </li>
               <li class="calculation-item-main">
                 <div class="label">Overhead factor:</div>
-                <div class="number">${{overheadFactor.toLocaleString()}}</div>
+                <div class="number">
+                  ${{ overheadFactor.toLocaleString() }}
+                </div>
               </li>
               <div class="calc-divider"></div>
               <li class="calculation-item-main">
                 <div class="label">
                   Net increase in revenue:
                 </div>
-                <div class="number">${{netIncreaseRevenue.toLocaleString()}}</div>
+                <div class="number">
+                  ${{ netIncreaseRevenue.toLocaleString() }}
+                </div>
               </li>
             </ul>
           </v-expansion-panel-text>
@@ -339,30 +403,7 @@ const clientSize = ref(1);
 const mowingSplit = ref(50);
 const workerSplit = ref(40);
 const numberOfWorkers = ref(10);
-watch([clientTypeRadio, clientSize], () => {
-  {
-    if (clientTypeRadio.value == "Residential") {
-      switch (clientSize.value) {
-        case 0:
-          return (numberOfWorkers.value = 2);
-        case 1:
-          return (numberOfWorkers.value = 10);
-        case 2:
-          return (numberOfWorkers.value = 20);
-      }
-    }
-    if (clientTypeRadio.value == "Commercial") {
-      switch (clientSize.value) {
-        case 0:
-          return (numberOfWorkers.value = 4);
-        case 1:
-          return (numberOfWorkers.value = 20);
-        case 2:
-          return (numberOfWorkers.value = 100);
-      }
-    }
-  }
-});
+
 const customers = computed(() => {
   switch (clientSize.value) {
     case 0:
@@ -373,13 +414,39 @@ const customers = computed(() => {
       return 1000;
   }
 });
+const mowingWorkers = computed(
+  () =>
+    Math.round(numberOfWorkers.value) *
+    (Math.round(workerSplit.value) / 100)
+);
+const nonMowingWorkers = computed(
+  () => Math.round(numberOfWorkers.value) - mowingWorkers.value
+);
+const percentIncreaseCustomers = computed(() => {
+  return (
+    (customers.value / nonMowingWorkers.value) *
+    ((mowingWorkers.value * (mowingSplit.value / 100)) /
+      customers.value) *
+    100
+  );
+});
+const estIncreaseInCustomers = computed(() => {
+  return (
+    customers.value * (percentIncreaseCustomers.value / 100)
+  );
+});
+const totalFutureCustomers = computed(() => {
+  return (
+    customers.value + Math.round(estIncreaseInCustomers.value)
+  );
+});
 const averageTurfSize = computed(() => {
   if (clientTypeRadio.value == "Residential") return 10000;
   if (clientTypeRadio.value == "Commercial") return 87000;
 });
-const avgRevPerCustomer = computed(()=>{
-  if(clientTypeRadio.value == 'Residential') return 3000;
-  if(clientTypeRadio.value == 'Commercial') return 25000;
+const avgRevPerCustomer = computed(() => {
+  if (clientTypeRadio.value == "Residential") return 3000;
+  if (clientTypeRadio.value == "Commercial") return 25000;
 });
 const avgPropertySqft = computed(() => {
   if (clientTypeRadio.value == "Residential") return 10000;
@@ -390,23 +457,36 @@ const totalPropertySqft = computed(() => {
 });
 const estimatedRobotsRequired = computed(() => {
   if (clientTypeRadio.value == "Commercial")
-    return 2 * customers.value * (Math.round(mowingSplit.value) / 100);
+    return (
+      2 *
+      totalFutureCustomers.value *
+      (Math.round(mowingSplit.value) / 100)
+    );
   if (clientTypeRadio.value == "Residential")
-    return customers.value * (Math.round(mowingSplit.value) / 100);
+    return (
+      totalFutureCustomers.value *
+      (Math.round(mowingSplit.value) / 100)
+    );
 });
 const estimatedMonthlyCostHusq430XH = computed(() => {
   return Math.round(
-    customers.value * (Math.round(mowingSplit.value) / 100) * 73.8
+    totalFutureCustomers.value *
+      (Math.round(mowingSplit.value) / 100) *
+      73.8
   );
 });
 const estimatedMonthlyCostHusq450XH = computed(() => {
   return Math.round(
-    customers.value * (Math.round(mowingSplit.value) / 100) * 95.99
+    totalFutureCustomers.value *
+      (Math.round(mowingSplit.value) / 100) *
+      95.99
   );
 });
 const estimatedMonthlyCostHusq315X = computed(() => {
   return Math.round(
-    customers.value * (Math.round(mowingSplit.value) / 100) * 45.34
+    totalFutureCustomers.value *
+      (Math.round(mowingSplit.value) / 100) *
+      45.34
   );
 });
 const estimatedMonthlyRobotCost = computed(() => {
@@ -420,24 +500,25 @@ const estimatedMonthlyRobotCost = computed(() => {
     return estimatedMonthlyCostHusq315X.value;
   }
 });
-const mowingWorkers = computed(() => Math.round(numberOfWorkers.value) * (Math.round(workerSplit.value)/100))
-const nonMowingWorkers = computed(() => Math.round(numberOfWorkers.value) - mowingWorkers.value)
 
-const percentIncreaseCustomers = computed(()=>{
-  return (customers.value / nonMowingWorkers.value) * ((mowingWorkers.value *  (mowingSplit.value / 100)) / customers.value) * 100;
-})
-const estIncreaseInCustomers = computed(()=>{
-  return customers.value * (percentIncreaseCustomers.value / 100);
-})
 const estYearlyIncreaseInRevenue = computed(() => {
-  return avgRevPerCustomer.value * (Math.round(estIncreaseInCustomers.value))
-})
-const overheadFactor = computed(()=>{
-  return Math.round(estimatedRobotsRequired.value / 200 * 50000)
-})
-const netIncreaseRevenue = computed(()=>{
-  return estYearlyIncreaseInRevenue.value - overheadFactor.value - (estimatedMonthlyRobotCost.value * 12);
-})
+  return (
+    avgRevPerCustomer.value *
+    Math.round(estIncreaseInCustomers.value)
+  );
+});
+const overheadFactor = computed(() => {
+  return Math.round(
+    (estimatedRobotsRequired.value / 200) * 50000
+  );
+});
+const netIncreaseRevenue = computed(() => {
+  return (
+    estYearlyIncreaseInRevenue.value -
+    overheadFactor.value -
+    estimatedMonthlyRobotCost.value * 12
+  );
+});
 </script>
 <style scoped>
 .robo-calc {
@@ -550,7 +631,7 @@ const netIncreaseRevenue = computed(()=>{
   width: 90%;
   display: flex;
 }
-.subitem{
+.subitem {
   width: 98%;
 }
 .calculation-item-main .label {
@@ -564,7 +645,7 @@ const netIncreaseRevenue = computed(()=>{
   padding-left: 30px;
   width: 100%;
 }
-.sublist{
+.sublist {
   padding-left: 0px !important;
 }
 

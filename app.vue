@@ -14,7 +14,7 @@ const route = useRoute();
 const navTitle = useState("nav-title", () => {
   if (route.path == "/")
     return "Robin Activity Dashboard";
-  if (route.path.toLowerCase() == "/roboticcalculator")
+  if (route.path.toLowerCase() == "/roboticscalculator")
     return "Robin Autopilot";
 });
 </script>
@@ -35,5 +35,11 @@ const navTitle = useState("nav-title", () => {
   opacity: 1.0;
   font-size: 20px;
   
+}
+.calculations-panel .v-expansion-panel{
+  border-radius: 10px !important;
+}
+.v-expansion-panel__shadow{
+  border-radius: 10px !important;
 }
 </style>

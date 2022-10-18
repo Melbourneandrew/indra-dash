@@ -16,7 +16,8 @@
         </li>
         <li class="rc-subtitle-item">
           Our Robotics calculator helps you visualize how much
-          more you can grow by using robot mowers without adding workers.
+          more you can grow by using robot mowers without adding
+          workers.
         </li>
       </ul>
       <!-- RADIO BUTTONS -->
@@ -126,7 +127,10 @@
           <v-expansion-panel-title
             class="calculations-title calculations-panel"
           >
-            <ul class="calculation-main-list" style="margin-top: 10px">
+            <ul
+              class="calculation-main-list"
+              style="margin-top: 10px"
+            >
               <li class="calculation-item-main">
                 <div class="label">
                   Potential increase in business:
@@ -152,7 +156,9 @@
                   Potential increase in revenue:
                 </div>
                 <div class="number">
-                  ${{ netIncreaseRevenue.toLocaleString() }}
+                  ${{
+                    estYearlyIncreaseInRevenue.toLocaleString()
+                  }}
                 </div>
               </li>
             </ul>
@@ -259,7 +265,7 @@
                       >
                         <li class="calculation-item-main">
                           <div class="label">
-                            Husqvarna 315X:
+                            Husqvarna 415X:
                           </div>
                           <div class="number">
                             {{
@@ -327,11 +333,11 @@
                       >
                         <li class="calculation-item-main">
                           <div class="label">
-                            Husqvarna 315X:
+                            Husqvarna 415X:
                           </div>
                           <div class="number">
                             ${{
-                              estimatedMonthlyCostHusq315X.toLocaleString()
+                              estimatedMonthlyCostHusq415X.toLocaleString()
                             }}
                           </div>
                         </li>
@@ -402,8 +408,30 @@ const clientTypeRadio = ref("Residential");
 const clientSize = ref(1);
 const mowingSplit = ref(50);
 const workerSplit = ref(40);
-const numberOfWorkers = ref(10);
-
+const numberOfWorkers = ref(20);
+watch([clientTypeRadio, clientSize], () => {
+  if (clientTypeRadio.value == "Residential") {
+    switch (clientSize.value) {
+      case 0:
+        numberOfWorkers.value = 2;
+        break;
+      case 1:
+        return (numberOfWorkers.value = 20);
+      case 2:
+        return (numberOfWorkers.value = 50);
+    }
+  }
+  if (clientTypeRadio.value == "Commercial") {
+    switch (clientSize.value) {
+      case 0:
+        return (numberOfWorkers.value = 4);
+      case 1:
+        return (numberOfWorkers.value = 40);
+      case 2:
+        return (numberOfWorkers.value = 100);
+    }
+  }
+});
 const customers = computed(() => {
   switch (clientSize.value) {
     case 0:
@@ -482,11 +510,11 @@ const estimatedMonthlyCostHusq450XH = computed(() => {
       95.99
   );
 });
-const estimatedMonthlyCostHusq315X = computed(() => {
+const estimatedMonthlyCostHusq415X = computed(() => {
   return Math.round(
     totalFutureCustomers.value *
       (Math.round(mowingSplit.value) / 100) *
-      45.34
+      55.34
   );
 });
 const estimatedMonthlyRobotCost = computed(() => {
@@ -497,10 +525,9 @@ const estimatedMonthlyRobotCost = computed(() => {
     );
   }
   if (clientTypeRadio.value == "Residential") {
-    return estimatedMonthlyCostHusq315X.value;
+    return estimatedMonthlyCostHusq415X.value;
   }
 });
-
 const estYearlyIncreaseInRevenue = computed(() => {
   return (
     avgRevPerCustomer.value *

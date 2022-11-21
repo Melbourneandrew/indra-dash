@@ -1,4 +1,4 @@
-** Note: ** *This repository includes the Activity Dashboard and the robotics calculator. The Robotics Calculator is entiley contained within * **components/RoboticPotential.vue*
+**Note:** *This repository includes the Activity Dashboard and the robotics calculator. The Robotics Calculator is entiley contained within* **pages/RoboticsPotential.vue*
 
 # Nuxt 3 Minimal Starter
 
